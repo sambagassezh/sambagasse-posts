@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Sambagasse_API — TikTok</title><link rel="stylesheet" href="../estilo.css"></head>
+<body><main>
+<h1>TikTok conectado</h1>
+<div id="ok" hidden>
+  <p>Copie este código e cole no terminal da Sambagasse_API. Ele vale só alguns minutos e só funciona uma vez.</p>
+  <code id="code"></code>
+  <button id="copiar" type="button">Copiar</button>
+</div>
+<div id="erro" hidden><p>O TikTok não devolveu um código: <span id="msg"></span></p></div>
+<p class="data">Esta página não envia nada para lugar nenhum; ela só mostra o código que está no endereço.</p>
+</main>
+<script>
+const q = new URLSearchParams(location.search);
+const code = q.get("code");
+if (code) {
+  document.getElementById("code").textContent = code;
+  document.getElementById("ok").hidden = false;
+  document.getElementById("copiar").onclick = () => navigator.clipboard.writeText(code)
+    .then(() => { document.getElementById("copiar").textContent = "Copiado"; });
+} else {
+  document.getElementById("msg").textContent = q.get("error_description") || q.get("error") || "sem código no endereço";
+  document.getElementById("erro").hidden = false;
+}
+</script>
+</body></html>
